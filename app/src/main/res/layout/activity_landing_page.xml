@@ -45,19 +45,20 @@
         </androidx.appcompat.widget.Toolbar>
 
         <com.google.android.material.tabs.TabLayout
-            android:id="@+id/tabs"
+            android:id="@+id/tabLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:tabGravity="fill"
             app:tabMode="fixed"
-            app:tabTextColor="@color/background_light_ash"
+            app:tabIndicatorHeight="6dp"
+            app:tabTextColor="@android:color/darker_gray"
             app:tabSelectedTextColor="@color/txt_white"
             app:tabIndicatorColor="@color/txt_white"/>
 
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.viewpager.widget.ViewPager
-        android:id="@+id/view_pager_id"
+        android:id="@+id/viewPager"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
