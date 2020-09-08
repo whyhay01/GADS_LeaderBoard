@@ -15,9 +15,9 @@ public class SkillScores {
     private String country;
 
     @SerializedName("badgeUrl")
-    private int badgeUrl;
+    private String badgeUrl;
 
-    public SkillScores(int score, String name, String country, int badgeUrl) {
+    public SkillScores(int score, String name, String country, String badgeUrl) {
         this.score = score;
         this.name = name;
         this.country = country;
@@ -36,7 +36,7 @@ public class SkillScores {
         return country;
     }
 
-    public int getBadgeUrl() {
+    public String getBadgeUrl() {
         return badgeUrl;
     }
 }

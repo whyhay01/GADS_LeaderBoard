@@ -5,12 +5,25 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
 
 public class SkillFragment extends Fragment {
+
+    SkillScoresAdapter adapter;
+    RecyclerView recyclerView;
 
     public static SkillFragment getInstance(){
 
@@ -19,19 +32,48 @@ public class SkillFragment extends Fragment {
         return skillFragment;
     }
 
-    @Override
-    public void onAttach(@NonNull Context context) {
-        super.onAttach(context);
-
-    }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.skill_leader, container, false);
+        return inflater.inflate(R.layout.skill_leader, container, false);
 
-        return view;
+    }
 
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        recyclerView = view.findViewById(R.id.rv_skill_leader);
+        adapter = new SkillScoresAdapter(getContext());
+
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        getSkillScores();
+
+    }
+
+    private void getSkillScores(){
+        GetSkillScores apiSkill = RetrofitClientInstance.getRetrofitInstance().create(GetSkillScores.class);
+        Call<List<SkillScores>> call = apiSkill.getSkillScores();
+        call.enqueue(new Callback<List<SkillScores>>() {
+            @Override
+            public void onResponse(Call<List<SkillScores>> call, Response<List<SkillScores>> response) {
+
+                skillData(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<List<SkillScores>> call, Throwable t) {
+
+            }
+        });
+    }
+
+    private void skillData(List<SkillScores> skillScores) {
+
+        adapter.SkillScoresAdapter(skillScores);
     }
 }
