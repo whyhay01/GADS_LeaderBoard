@@ -4,7 +4,7 @@
 
     <solid android:color="@color/background_light_ash" />
     <corners android:topLeftRadius="400dp"/>
-    <size android:height="18dp" android:width="15dp"/>
+    <size android:height="400dp" android:width="400dp"/>
 
 
 </shape>
