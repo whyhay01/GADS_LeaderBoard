@@ -29,4 +29,22 @@ public class RetrofitClientInstance {
         return retrofit;
     }
 
+    public static Retrofit getRetrofitPostInstance(){
+
+        if (retrofit == null){
+            HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
+            // set your desired log level
+            logging.setLevel(HttpLoggingInterceptor.Level.BODY);
+            OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
+            httpClient.addInterceptor(logging).build();
+            retrofit = new retrofit2.Retrofit.Builder()
+                    .baseUrl("https://docs.google.com/forms/d/e/")
+                    .client(httpClient.build())
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .build();
+        }
+
+        return retrofit;
+    }
+
 }
