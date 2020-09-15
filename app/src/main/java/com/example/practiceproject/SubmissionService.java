@@ -8,7 +8,7 @@ import retrofit2.http.POST;
 
 public interface SubmissionService {
 
-    @FormUrlEncoded
-    @POST("1FAIpQLSf9d1TcNU6zc6KR8bSEM41Z1g1zl35cwZr2xyjIhaMAz8WChQ/formResponse")
-    Call<UserSubmissionResponse> saveResponse ( UserSubmission userSubmission);
+
+    @POST("/1FAIpQLSf9d1TcNU6zc6KR8bSEM41Z1g1zl35cwZr2xyjIhaMAz8WChQ/formResponse")
+    Call<UserSubmissionResponse> postResponse( @Body UserSubmission userSubmission);
 }

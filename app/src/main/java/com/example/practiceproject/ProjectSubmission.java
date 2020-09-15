@@ -38,7 +38,7 @@ public class ProjectSubmission extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_project_submission);
 
-        submitDialog = new Dialog(this);
+
 
         etFirstName = findViewById(R.id.et_firstName);
         etEmailAddress = findViewById(R.id.et_emailAddress);
@@ -67,6 +67,7 @@ public class ProjectSubmission extends AppCompatActivity {
 
     public void viewSubmitDialog(){
 
+        submitDialog = new Dialog(this);
         submitDialog.setContentView(R.layout.submit_dialog);
         imgCancel = submitDialog.findViewById(R.id.img_cancel);
         txtYes = submitDialog.findViewById(R.id.txt_yes);
@@ -81,10 +82,10 @@ public class ProjectSubmission extends AppCompatActivity {
         txtYes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getApplicationContext(),"The Yes Button is selected", Toast.LENGTH_SHORT).show();
 
-                saveResponse(createSubmission());
+                postResponse(createSubmission());
                 submitDialog.dismiss();
+
             }
         });
         WindowManager.LayoutParams lp = submitDialog.getWindow().getAttributes();
@@ -97,13 +98,15 @@ public class ProjectSubmission extends AppCompatActivity {
 
     public void submissionSuccessful(){
 
+        submitDialog =new Dialog(this, R.style.DialogTheme);
         submitDialog.setContentView(R.layout.successful_submission);
-       submitDialog.show();
+        submitDialog.show();
 
     }
 
     public void submissionFailed(){
 
+        submitDialog =new Dialog(this, R.style.DialogTheme);
         submitDialog.setContentView(R.layout.failed_submission);
         submitDialog.show();
 
@@ -120,25 +123,31 @@ public class ProjectSubmission extends AppCompatActivity {
 
     }
 
-    public void saveResponse(UserSubmission userSubmission){
+    public void postResponse(UserSubmission userSubmission){
         Call<UserSubmissionResponse> userSubmissionResponseCall = RetrofitClientInstance.
-                getRetrofitPostInstance().create(SubmissionService.class).saveResponse(userSubmission);
+                getRetrofitPostInstance().create(SubmissionService.class).postResponse(userSubmission);
 
         userSubmissionResponseCall.enqueue(new Callback<UserSubmissionResponse>() {
             @Override
             public void onResponse(Call<UserSubmissionResponse> call, Response<UserSubmissionResponse> response) {
 
+                clearField();
                 submissionSuccessful();
-                Toast.makeText(getApplicationContext(), "Submission Successful", Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onFailure(Call<UserSubmissionResponse> call, Throwable t) {
 
                 submissionFailed();
-                Toast.makeText(getApplicationContext(), "Submission Failed!! Retry!!", Toast.LENGTH_LONG).show();
 
             }
         });
+    }
+
+    public void clearField(){
+        etFirstName.setText("");
+        etLastName.setText("");
+        etEmailAddress.setText("");
+        etGitLink.setText("");
     }
 }

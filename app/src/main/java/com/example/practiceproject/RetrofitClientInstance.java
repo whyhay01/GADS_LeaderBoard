@@ -11,9 +11,11 @@ public class RetrofitClientInstance {
 
     private static final String BASE_URL = "https://gadsapi.herokuapp.com/";
 
+    private static final String BASE_URL_FORM = "https://docs.google.com/forms/d/e/";
+
     public static Retrofit getRetrofitInstance(){
 
-        if (retrofit == null){
+//        if (retrofit == null){
             HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
             // set your desired log level
             logging.setLevel(HttpLoggingInterceptor.Level.BODY);
@@ -24,25 +26,25 @@ public class RetrofitClientInstance {
                     .client(httpClient.build())
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();
-        }
+//        }
 
         return retrofit;
     }
 
     public static Retrofit getRetrofitPostInstance(){
 
-        if (retrofit == null){
+//        if (retrofit == null){
             HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
             // set your desired log level
             logging.setLevel(HttpLoggingInterceptor.Level.BODY);
             OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
             httpClient.addInterceptor(logging).build();
             retrofit = new retrofit2.Retrofit.Builder()
-                    .baseUrl("https://docs.google.com/forms/d/e/")
+                    .baseUrl(BASE_URL_FORM)
                     .client(httpClient.build())
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();
-        }
+//        }
 
         return retrofit;
     }
