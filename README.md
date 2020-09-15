@@ -12,3 +12,5 @@ The mobile App display Top 20 learners in the Learning Leaders’ category and T
 
 <img src ="/Images/Screenshot_1599852055.png" height ="500" width = "300"/>
 
+<img src ="/Images/Screenshot_1600170995.png" height ="500" width = "300"/>
+
